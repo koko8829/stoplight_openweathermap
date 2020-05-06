@@ -1,0 +1,24 @@
+openapi: 3.0.0
+info:
+  title: OpenWeatherMap API
+  version: '2.5'
+  description: "현재 날씨, 16일간의 예보, 특정 도시의 5일간 3시간 간격 예보 정보를 가져옵니다. 도움이 될 수 있는 상태 정보와 그래픽, 이전 이력을 레퍼런스에서 확인할 수 있습니다. 인터랙티브한 지도를 통해 강수량, 구름, 기압, 바람을 확인할 수 있습니다. 데이터는 JSON, XML, HTML 형식으로 사용할 수 있습니다. **참고**: 샘플로 제공되는 Swagger 파일은 OpenWeatherMap API에서 제공하는 '현재' 엔드포인트만 처리합니다.<br/><br/> **참고**: 모든 파라미터는 옵션이지만 최소 한 개 이상의 파라미터를 선택해야 합니다. 도시 아이디('id' 파라미터를 사용합니다)에 따른 API를 호출하는 것이 가장 정확한 지역 정보를 반환합니다."
+  contact:
+    name: Support
+    url: 'https://openweathermap.org/api'
+    email: some_email@gmail.com
+  termsOfService: 'https://openweathermap.org/terms'
+  license:
+    name: 저작자표시-동일조건변경허락 4.0 국제 (CC BY-SA 4.0)
+    url: 'https://openweathermap.org/price'
+servers:
+  - url: 'https://api.openweathermap.org/data/2.5'
+    description: prod
+paths: {}
+components:
+  schemas: {}
+  securitySchemes:
+    app_id:
+      name: appid
+      type: apiKey
+      in: query
