@@ -192,6 +192,12 @@ paths:
                     id: 0
                     name: Santa Clara
                     cod: 200
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized_response'
       operationId: get-weather
       description: 약 20만개의 도시의 현재 날씨 데이터에 접근합니다. 현재 날씨는 4만여개의 관측소로부터 수집된 데이터를 기반으로 업데이트됩니다.
       security:
@@ -249,7 +255,18 @@ paths:
           name: mode
           description: '**Mode**. *예: html*. 응답의 형식을 지정합니다. `json`, `xml`, `html`을 사용할 수 있습니다. mode 파라미터가 빈 값이라면 `json`을 기본값으로 사용합니다.'
 components:
-  schemas: {}
+  schemas:
+    unauthorized_response:
+      title: 401
+      type: object
+      properties:
+        cod:
+          type: integer
+        message:
+          type: string
+      required:
+        - cod
+        - message
   securitySchemes:
     app_id:
       name: appid
