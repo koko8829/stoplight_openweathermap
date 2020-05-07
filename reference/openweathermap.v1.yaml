@@ -20,7 +20,178 @@ paths:
       summary: weather
       tags:
         - Weather endpoints
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  coord:
+                    type: object
+                    properties:
+                      lon:
+                        description: '도시 위치 정보, 위도'
+                        example: '145.77'
+                        type: number
+                      lat:
+                        description: '도시 위치 정보, 경도'
+                        example: '-16.92'
+                        type: number
+                  cod:
+                    type: string
+                    description: 내부 파라미터
+                    example: '200'
+                  name:
+                    type: string
+                    description: 이름
+                    example: Cairns
+                  id:
+                    description: 도시 ID
+                    example: '2172797'
+                    type: number
+                  timezone:
+                    description: 해당 지역의 타임존
+                    example: '-28800'
+                    type: number
+                  sys:
+                    type: object
+                    properties:
+                      type:
+                        type: number
+                        description: 내부 파라미터
+                        example: '1'
+                      id:
+                        description: 내부 파라미터
+                        example: '8166'
+                        type: number
+                      country:
+                        type: string
+                        description: "'국가 코드 (GB, JP 등)'"
+                        example: AU
+                      sunrise:
+                        description: "'일출 시간, unix, UTC'"
+                        example: '1435610796'
+                        type: number
+                      sunset:
+                        description: "'일몰 시간, unix, UTC'"
+                        example: '1435650870'
+                        type: number
+                  dt:
+                    type: number
+                    description: '데이터 계산을 위한 시간, unix, UTC'
+                    example: 1435658272
+                  clouds:
+                    type: object
+                    properties:
+                      all:
+                        description: "'운량, %'"
+                        example: '75'
+                        type: number
+                  wind:
+                    type: object
+                    properties:
+                      speed:
+                        description: "'풍속, 기본 단위: 미터/초, Metric: 미터/초, Imperial: 마일/시간'"
+                        example: '5.1'
+                        type: number
+                      deg:
+                        description: " '풍향, 도(기상학적인)'"
+                        example: '150'
+                        type: number
+                      visibility:
+                        description: "'시계, 미터'"
+                        example: '16093'
+                        type: number
+                  main:
+                    type: object
+                    properties:
+                      temp:
+                        type: number
+                        description: " '온도. 기본 단위: 켈빈, Metric: 섭씨, Imperial: 화씨'"
+                        example: '293.25'
+                      'feels_like:':
+                        description: 실제 수치 대비 느껴지는 날씨
+                        example: '41.16'
+                        type: number
+                      temp_min:
+                        description: "'순간 최저 온도. 대도시와 지리적으로 확장된 도시에서 현재 온도와의 편차 (옵션으로 파라미터를 사용합니다). 기본 단위: 켈빈, Metric: 섭씨, Imperial: 화씨'"
+                        example: ' 289.82'
+                        type: number
+                      temp_max:
+                        description: "'순간 최고 온도. 대도시와 지리적으로 확장된 도시에서 현재 온도와의 편차 (옵션으로 파라미터를 사용합니다). 기본 단위: 켈빈, Metric: 섭씨, Imperial: 화씨'"
+                        example: '295.37'
+                        type: number
+                      pressure:
+                        description: "'기압 (해수면 기준, 해수면 측정이 어려운 경우 지표면 기준 데이터). hPa'"
+                        example: '1019'
+                        type: number
+                      humidity:
+                        description: "'습도, %'"
+                        example: '83'
+                        type: number
+                  base:
+                    type: string
+                    description: 내부 파라미터
+                    example: cmc stations
+                  weather:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          description: 날씨 상태 id
+                          example: "'803'"
+                          type: number
+                        main:
+                          type: string
+                          description: "'날씨 파라미터 그룹 (비, 눈, 심각한 등)'"
+                          example: clouds
+                        description:
+                          type: string
+                          description: 그룹 내에서 날씨 상태
+                          example: broken clouds
+                        icon:
+                          type: string
+                          description: 날씨 아이콘 id
+                          example: 04n
+              examples:
+                Example.:
+                  value:
+                    coord:
+                      lon: -121.95
+                      lat: 37.35
+                    weather:
+                      - id: 803
+                        main: Clouds
+                        description: broken clouds
+                        icon: 04n
+                    base: stations
+                    main:
+                      temp: 45.25
+                      feels_like: 41.16
+                      temp_min: 41
+                      temp_max: 50
+                      pressure: 1026
+                      humidity: 75
+                    visibility: 16093
+                    wind:
+                      speed: 2.57
+                      deg: 36
+                    clouds:
+                      all: 75
+                    dt: 1579415808
+                    sys:
+                      type: 1
+                      id: 5845
+                      country: US
+                      sunrise: 1579360793
+                      sunset: 1579396557
+                    timezone: -28800
+                    id: 0
+                    name: Santa Clara
+                    cod: 200
       operationId: get-weather
       description: 약 20만개의 도시의 현재 날씨 데이터에 접근합니다. 현재 날씨는 4만여개의 관측소로부터 수집된 데이터를 기반으로 업데이트됩니다.
       security:
@@ -50,7 +221,7 @@ paths:
             type: string
           in: query
           name: id
-          description: '**도시 ID**. "예: `2172797`*. 도시 ID를 지정해 호출할 수 있습니다. API에서는 해당 도시의 정확한 결과를 반환합니다. 도시 ID 목록은 다음 링크에서 확인할 수 있습니다. [도시 목록](http://bulk.openweathermap.org/sample/). 파라미터 내에서 여러 도시를 콤마로 구분해서 포함할 수 있습니다. 지정할 수 있는 위치는 20개로 제한됩니다. *참고: 하나의 ID는 하나의 API 호출로 처리됩니다. 그래서 여러 개의 도시 ID를 지정하면 3번의 API 호출로 처리될 수 있습니다.'
+          description: '**도시 ID**. *예: `2172797`*. 도시 ID를 지정해 호출할 수 있습니다. API에서는 해당 도시의 정확한 결과를 반환합니다. 도시 ID 목록은 다음 링크에서 확인할 수 있습니다. [도시 목록](http://bulk.openweathermap.org/sample/). 파라미터 내에서 여러 도시를 콤마로 구분해서 포함할 수 있습니다. 지정할 수 있는 위치는 20개로 제한됩니다. *참고: 하나의 ID는 하나의 API 호출로 처리됩니다. 그래서 여러 개의 도시 ID를 지정하면 3번의 API 호출로 처리될 수 있습니다.'
         - schema:
             type: string
           in: query
