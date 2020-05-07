@@ -206,7 +206,7 @@ paths:
         - schema:
             type: string
           in: query
-          name: ' zip'
+          name: zip
           description: '**우편번호**. 우편번호로 검색합니다. *예: 95050,us*. 국가 정보를 지정하지 않으면 USA를 기본값으로 처리합니다.'
         - schema:
             type: string
